@@ -1,3 +1,24 @@
+# Twenty-Linkedin (private — do not publish)
+
+This is the **LinkedIn channel plugin** for Twenty CRM — a `twenty-sdk` app, one branch
+(`Twenty-Linkedin`) of the private `tayyabulislam16/twenty` repo. **Private project**; do not
+publish source, links, or credentials externally.
+
+**Architecture lives in the private base repo** (`mekkoMarketing`, branch `mekko-main`):
+`mekko/docs/channel-apps.md` (product architecture), `mekko/docs/customization.md` (App SDK +
+the Windows path patch). Local path: `d:\work\mekkoMarketing\mekko\docs\`. Read those before
+making structural decisions. The key decisions, in brief:
+
+- **This plugin = structure + UI + database only.** It never runs the automation.
+- A **dedicated external LinkedIn automation system (per client)** with an **AI agent**
+  reads/writes this app's objects via Twenty's API (API-first; per-client API key).
+- **Two-way:** the agent/person writes records *in*; human actions in Twenty (approve / send /
+  status) fire a `DATABASE_EVENT` → `http-request` workflow that signals the automation *out*.
+- Shared code (`@mekko/channel-kit`, `@mekko/<channel>-contract`) ships as **private npm
+  packages**, compiled into the app — not copied between repos.
+- **Deploy is patched for Windows** via Yarn native patch (`.yarn/patches/`); auth is **API-key**,
+  not OAuth, against the base stack on `http://localhost:3900`.
+
 ## Base documentation
 
 - Getting started:
