@@ -29,15 +29,19 @@ unless explicitly asked.
 
 ## Docs
 
+- [`docs/local-dev.md`](docs/local-dev.md) — **running locally**: fixed ports (backend :3900, dev :3901 — do not change), the two run modes, frontend hot-reload (`dev-frontend.ps1`), Windows build gotchas.
 - [`docs/deployment.md`](docs/deployment.md) — Docker stack, building the `mekko-twenty` image, env, backups.
 - [`docs/data-setup.md`](docs/data-setup.md) — the `.tools/twenty-setup/` API toolkit (key extraction, metadata, seeding).
-- [`docs/customization.md`](docs/customization.md) — editing Twenty source: frontend hot-reload dev (`dev-frontend.ps1`, Vite on :3001), Windows build gotchas, deploy + verify loop.
+- [`docs/customization.md`](docs/customization.md) — *what/why* to change in Twenty source: route decision (API vs source), edit→deploy→verify loop, migrations, versioning.
 
 ## Conventions for Claude
 
 - The upstream dev commands in root `CLAUDE.md` (`yarn start`, `npx nx ...`) apply **only**
   when we are customizing the Twenty source — not for running our deployment.
 - To run the deployed app, use Docker from `twenty/` (see `docs/deployment.md`), not `yarn start`.
+- **Fixed URLs — do not change:** backend/app on **http://localhost:3900**, frontend dev
+  server on **:3901** (never the common 3000/3001). Other agents/sessions rely on the same
+  URL — don't start the app on a different port. See `docs/local-dev.md`.
 - The read-only Postgres MCP server (`.mcp.json`) is the way to inspect live CRM data.
 - Treat `twenty/.env`, `twenty/backups/`, and `.tools/twenty-setup/api-key.txt` as secrets —
   never paste their contents into commits, PRs, or external services.

@@ -1,8 +1,12 @@
-# Start the Twenty frontend hot-reload dev server (Vite) on http://localhost:3001
+# Start the Twenty frontend hot-reload dev server (Vite) on http://localhost:3901
+#
+# FIXED PORTS (do NOT change — other agents/sessions rely on the same URLs):
+#   3900 = backend (Docker server)      3901 = this frontend dev server
+# We deliberately avoid the common 3000/3001. See mekko/docs/local-dev.md.
 #
 # Prereq: the backend stack must be running first:
-#     cd twenty; docker compose up -d
-# The dev server talks to that backend at http://localhost:3000
+#     cd twenty; docker compose up -d        # serves the app on http://localhost:3900
+# The dev server talks to that backend at http://localhost:3900
 # (configured in packages/twenty-front/.env -> REACT_APP_SERVER_BASE_URL).
 #
 # Edit any file under packages/twenty-front/src and the browser updates in ~1s,
@@ -14,5 +18,5 @@ $ErrorActionPreference = "Stop"
 $env:Path = "C:\Users\tayyab\corepack-bin;" + $env:Path
 
 Set-Location "$PSScriptRoot\packages\twenty-front"
-Write-Host "Starting Vite dev server on http://localhost:3001 ..." -ForegroundColor Cyan
-npx vite --port 3001 --host
+Write-Host "Starting Vite dev server on http://localhost:3901 ..." -ForegroundColor Cyan
+npx vite --port 3901 --strictPort --host

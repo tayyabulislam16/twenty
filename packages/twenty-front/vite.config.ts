@@ -70,6 +70,25 @@ export default defineConfig(({ mode }) => {
     },
 
     plugins: [
+      // [mekko] Dev-only: inject window._env_ from .env so REACT_APP_SERVER_BASE_URL
+      // overrides the hardcoded localhost:3000 default in src/config/index.ts.
+      // Lets the frontend dev server reach our backend on its fixed port (3900).
+      // apply: 'serve' => never affects the production build (Docker entrypoint fills
+      // window._env_ at runtime there). See mekko/docs/local-dev.md.
+      {
+        name: 'mekko-dev-env-inject',
+        apply: 'serve',
+        transformIndexHtml(html: string) {
+          const serverUrl =
+            env.REACT_APP_SERVER_BASE_URL || 'http://localhost:3900';
+          return html.replace(
+            /window\._env_ = \{[\s\S]*?\};/,
+            `window._env_ = { REACT_APP_SERVER_BASE_URL: ${JSON.stringify(
+              serverUrl,
+            )} };`,
+          );
+        },
+      },
       react({
         plugins: [['@lingui/swc-plugin', {}]],
       }),

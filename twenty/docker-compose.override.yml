@@ -1,6 +1,10 @@
 # Build Twenty from YOUR local source instead of pulling twentycrm/twenty:latest.
 # Auto-loaded by `docker compose` when run from this folder.
 # Build context is the repo root (one level up), where the monorepo lives.
+#
+# PORTS: the app is served on host port 3900 (NOT the common 3000). `!override`
+# replaces the base compose's "3000:3000" mapping instead of appending to it, so
+# only 3900 is exposed. This URL is fixed — see mekko/docs/local-dev.md. Do not change it.
 
 services:
   server:
@@ -9,6 +13,8 @@ services:
       context: ..
       dockerfile: packages/twenty-docker/twenty/Dockerfile
       target: twenty
+    ports: !override
+      - "3900:3000"
 
   worker:
     image: mekko-twenty:latest
