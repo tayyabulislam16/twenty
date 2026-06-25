@@ -1,6 +1,8 @@
 **/**/.env
 # Local Twenty setup tooling (browser profile / automation junk)
 .tools/
+# Local DB snapshots
+twenty/backups/
 .DS_Store
 /.idea
 .claude/*

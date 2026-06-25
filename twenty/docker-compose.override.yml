@@ -1,0 +1,15 @@
+# Build Twenty from YOUR local source instead of pulling twentycrm/twenty:latest.
+# Auto-loaded by `docker compose` when run from this folder.
+# Build context is the repo root (one level up), where the monorepo lives.
+
+services:
+  server:
+    image: mekko-twenty:latest
+    build: &mekko-build
+      context: ..
+      dockerfile: packages/twenty-docker/twenty/Dockerfile
+      target: twenty
+
+  worker:
+    image: mekko-twenty:latest
+    build: *mekko-build
