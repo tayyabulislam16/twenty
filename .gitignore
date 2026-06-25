@@ -4,7 +4,14 @@
 /node_modules
 /.pnp
 .pnp.*
-.yarn
+
+# Yarn 4: ignore caches/state but TRACK patches, releases, plugins, sdks, versions
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
 # codegen
 generated
