@@ -136,7 +136,7 @@ export const SignInUp = () => {
     }
 
     if (isGlobalScope) {
-      return t`Welcome to Twenty`;
+      return t`Welcome to Mekko CRM`;
     }
 
     const workspaceName = workspacePublicData?.displayName;
@@ -145,7 +145,7 @@ export const SignInUp = () => {
       return t`Welcome to your workspace`;
     }
 
-    return t`Welcome, ${workspaceName}.`;
+    return t`Welcome to Mekko CRM, ${workspaceName}.`;
   }, [
     workspaceInviteHash,
     signInUpStep,
